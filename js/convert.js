@@ -253,8 +253,8 @@ const bible_name_dict = {
     '요한일서': '1john',
     '1john': 5,
 
-    '요이': '2jo',
-    '요한이서': '2jo',
+    '요이': '2john',
+    '요한이서': '2john',
     '2john': 1,
 
     '요3': '3john',
