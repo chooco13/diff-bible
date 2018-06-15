@@ -93,7 +93,7 @@
                                     content: message
                                 })
 
-                                this.save();
+                                app.save();
                             }
                         })          
                     },
@@ -109,7 +109,7 @@
                     reset: function() {
                         if (storageAvailable('localStorage')) {
                             localStorage.clear();
-                            locaion.reload();
+                            location.reload();
                         }
                     }
                 }
