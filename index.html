@@ -160,7 +160,7 @@
             <p class="mb-0"><strong v-text="data.selected.chapter"></strong></p>
             <div class="form-group">
                 <label for="textarea"></label>
-                <textarea class="form-control" id="textarea" rows="3"></textarea>
+                <textarea class="form-control" id="textarea" rows="3" placeholder="여기에 성구를 입력해주세요."></textarea>
             </div>
             <div class="text-right">
                 <button type="button" class="btn btn-primary" @click="launch">확인</button>
@@ -182,9 +182,10 @@
                 </div>
                 <div class="modal-body">
                     <ul>
-                        <li>입력창에 테스트 하길 원하는 구절을 입력하고 추가를 누릅니다. (, 를 사용하여 여러 성구를 한번에 등록 할 수 있습니다.)</li>
+                        <li>입력창에 테스트 하길 원하는 구절을 입력하고 추가를 누릅니다. ( , 를 사용하여 여러 성구를 한번에 등록 할 수 있습니다.)</li>
                         <li>랜덤을 누를경우 성구가 랜덤으로 선택되며, 자신이 테스트를 원하는 성구를 누르면 해당 성구를 테스트 할 수 있습니다.</li>
-                        <li>성구를 삭제하고 싶을 경우 더블클릭을 하여 삭제를 할 수 있으며, 전체 삭제를 원할 경우 초기화 버튼을 눌러주면 됩니다.</li>
+                        <li>성구의 내용을 입력한 뒤 하단의 확인 버튼을 누르면 불필요하게 추가된 부분과 놓친 부분을 확인 할 수 있습니다.</li>
+                        <li>특정 성구를 삭제하고 싶을 경우 더블클릭을 하여 삭제를 할 수 있으며, 전체 삭제를 원할 경우 초기화 버튼을 눌러주면 됩니다.</li>
                         <li>저장된 성구는 브라우저에 저장되어 컴퓨터를 껐다 켜도 사용이 됩니다.</li>
                     </ul>
                 </div>
