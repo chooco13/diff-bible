@@ -68,34 +68,36 @@
                     },
                     addData: function () {
                         var newBible = document.getElementById('new-bible').value;
-
-                        jQuery.ajax({
-                            url: 'https://getbible.net/json?translation=korean&p=' + getEngName(newBible),
-                            dataType: 'jsonp',
-                            jsonp: 'getbible',
-                            success: function (json) {
-                                var message = '';
-                                if (json.book !== undefined) {
-                                    Object.keys(json.book).forEach(function (key) {
-                                        var chapter = json.book[key].chapter;
-                                        Object.keys(chapter).forEach(function (key) {
-                                            message += chapter[key].verse.trim() + " "
+                            
+                        newBible.split(',').forEach(function(data){
+                            jQuery.ajax({
+                                url: 'https://getbible.net/json?translation=korean&p=' + getEngName(data),
+                                dataType: 'jsonp',
+                                jsonp: 'getbible',
+                                success: function (json) {
+                                    var message = '';
+                                    if (json.book !== undefined) {
+                                        Object.keys(json.book).forEach(function (key) {
+                                            var chapter = json.book[key].chapter;
+                                            Object.keys(chapter).forEach(function (key) {
+                                                message += chapter[key].verse.trim() + " "
+                                            })
                                         })
+                                    } else if (json.chapter !== undefined) {
+                                        Object.keys(json.chapter).forEach(function (key) {
+                                            message += json.chapter[key].verse.trim() + " "
+                                        })
+                                    }
+
+                                    verses.push({
+                                        chapter: data,
+                                        content: message
                                     })
-                                } else if (json.chapter !== undefined) {
-                                    Object.keys(json.chapter).forEach(function (key) {
-                                        message += json.chapter[key].verse.trim() + " "
-                                    })
+
+                                    app.save();
                                 }
-
-                                verses.push({
-                                    chapter: newBible,
-                                    content: message
-                                })
-
-                                app.save();
-                            }
-                        })          
+                            })          
+                        })
                     },
                     clear: function() {
                         document.getElementById('textarea').value = null;
@@ -133,18 +135,20 @@
 <body>
     <div class="container" id="container">
         <div class="mt-4">
+            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#guideModal">사용법</button>
             <div class="form-row align-items-center">
                 <div class="col-sm-3 my-1">
                     <label class="sr-only" for="new-bible">구절</label>
                     <input type="text" class="form-control" id="new-bible" placeholder="구절을 입력">
                 </div>
                 <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary" @click="addData">추가</button>
+                    <button type="submit" class="btn btn-success" @click="addData">추가</button>
                 </div>
                 <div class="col-auto my-1">
                     <button type="submit" class="btn btn-danger" @click="reset">초기화</button>
-                </div>    
+                </div>
             </div>
+            <div class="clearfix"></div>
         </div>
 
         <div class="mt-4">
@@ -163,6 +167,27 @@
             </div>
             <div v-if="this.launched" class="mt-4">
                 <div v-html="result" class="mb-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="guideModal" tabindex="-1" role="dialog" aria-labelledby="guideModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guideModalLabel">사용법</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>입력창에 테스트 하길 원하는 구절을 입력하고 추가를 누릅니다. (, 를 사용하여 여러 성구를 한번에 등록 할 수 있습니다.)</li>
+                        <li>랜덤을 누를경우 성구가 랜덤으로 선택되며, 자신이 테스트를 원하는 성구를 누르면 해당 성구를 테스트 할 수 있습니다.</li>
+                        <li>성구를 삭제하고 싶을 경우 더블클릭을 하여 삭제를 할 수 있으며, 전체 삭제를 원할 경우 초기화 버튼을 눌러주면 됩니다.</li>
+                        <li>저장된 성구는 브라우저에 저장되어 컴퓨터를 껐다 켜도 사용이 됩니다.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
