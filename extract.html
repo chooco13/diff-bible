@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>diff bible - extract</title>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            var verses = [];
+            if (storageAvailable('localStorage') && localStorage.getItem("verses")) {
+                verses = JSON.parse(localStorage.getItem("verses"));
+            }
+
+            var text = '';
+            if(verses.length > 0) {
+                for (var i = 0; i < verses.length; i++) {
+                    var verse = verses[i];
+                    text += (verse.chapter + '<br/>');
+                    text += (verse.content + '<br/><br/>');
+                }
+            } else {
+                text = '선택된 성구가 없습니다.';
+            }
+
+            document.body.innerHTML = text;
+        });
+
+        function storageAvailable(type) {
+            try {
+                var storage = window[type],
+                    x = '__storage_test__';
+                storage.setItem(x, x);
+                storage.removeItem(x);
+                return true;
+            } catch (e) {
+                return e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') && storage.length !== 0;
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

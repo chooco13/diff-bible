@@ -1,0 +1,8 @@
+#new-bible {
+    display: inline-block !important;
+    width: calc(100% - 64px);
+}
+
+#new-bible + button {
+    display: inline-block;
+}

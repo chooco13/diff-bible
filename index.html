@@ -6,9 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>diff bible</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -134,26 +137,23 @@
 
 <body>
     <div class="container" id="container">
-        <div class="mt-4">
-            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#guideModal">사용법</button>
-            <div class="form-row align-items-center">
-                <div class="col-sm-3 my-1">
-                    <label class="sr-only" for="new-bible">구절</label>
-                    <input type="text" class="form-control" id="new-bible" placeholder="구절을 입력">
-                </div>
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-success" @click="addData">추가</button>
-                </div>
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-danger" @click="reset">초기화</button>
-                </div>
-            </div>
-            <div class="clearfix"></div>
+        <div class="mt-4 text-right">
+            <button type="submit" class="btn btn-danger" @click="reset">초기화</button>
+            <a href="./extract.html" class="btn btn-info">추출</a>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#guideModal">사용법</button>
         </div>
 
         <div class="mt-4">
-            <span class="badge badge-pill badge-primary m-2" @click=random>랜덤</span>
-            <span class="badge badge-pill badge-secondary m-2" v-for="(verse, index) in data.verses" v-text="verse.chapter" @click=select(verse) v-on:dblclick="remove(verse, index)"></span>
+            <div class="form-group">
+                <label class="sr-only" for="new-bible">구절</label>
+                <input type="text" class="form-control" id="new-bible" placeholder="구절을 입력 ( ',' 로 구분)">
+                <button type="submit" class="btn btn-success" @click="addData">추가</button>
+            </div>            
+        </div>
+
+        <div class="mt-4">
+            <span class="badge badge-pill badge-primary m-2 p-2" @click=random>랜덤</span>
+            <span class="badge badge-pill badge-secondary m-2 p-2" v-for="(verse, index) in data.verses" v-text="verse.chapter" @click=select(verse) v-on:dblclick="remove(verse, index)"></span>
         </div>
 
         <div class="mt-4">
@@ -182,7 +182,7 @@
                 </div>
                 <div class="modal-body">
                     <ul>
-                        <li>입력창에 테스트 하길 원하는 구절을 입력하고 추가를 누릅니다. ( , 를 사용하여 여러 성구를 한번에 등록 할 수 있습니다.)</li>
+                        <li>입력창에 테스트 하길 원하는 구절을 입력하고 추가를 누릅니다. ( ',' 를 사용하여 여러 성구를 한번에 등록 할 수 있습니다.)</li>
                         <li>랜덤을 누를경우 성구가 랜덤으로 선택되며, 자신이 테스트를 원하는 성구를 누르면 해당 성구를 테스트 할 수 있습니다.</li>
                         <li>성구의 내용을 입력한 뒤 하단의 확인 버튼을 누르면 불필요하게 추가된 부분과 놓친 부분을 확인 할 수 있습니다.</li>
                         <li>특정 성구를 삭제하고 싶을 경우 더블클릭을 하여 삭제를 할 수 있으며, 전체 삭제를 원할 경우 초기화 버튼을 눌러주면 됩니다.</li>
