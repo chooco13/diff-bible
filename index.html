@@ -92,6 +92,10 @@
                                         })
                                     }
 
+                                    if (message) {
+                                        message = message.replace(/ !/g, '');
+                                    }
+
                                     verses.push({
                                         chapter: data,
                                         content: message
