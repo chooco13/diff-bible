@@ -18,7 +18,7 @@
                 for (var i = 0; i < verses.length; i++) {
                     var verse = verses[i];
                     text += (verse.chapter + '<br/>');
-                    text += (verse.content + '<br/><br/>');
+                    text += (verse.content.replace(/( [!?'`])/gm, '') + '<br/><br/>');
                 }
             } else {
                 text = '선택된 성구가 없습니다.';
